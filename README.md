@@ -19,7 +19,7 @@
 
 ## Installation
 
-> [!Imp]
+> [!IMPORTANT]
 > ### Environment Variables
 > Create a `.env` file in the backend directory to store your environment variables:
 > ```
