@@ -17,6 +17,16 @@
 ## Overview
 
 
+### Dataset
+The dataset used for this project is the [Data of Genomes and Genetics](https://www.kaggle.com/datasets/aryarishabh/of-genomes-and-genetics-hackerearth-ml-challenge) from kaggle.
+
+
+## Demo
+
+
+
+
+
 ## Installation
 
 > [!IMPORTANT]

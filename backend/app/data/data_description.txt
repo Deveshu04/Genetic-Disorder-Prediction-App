@@ -1,0 +1,67 @@
+Data Of Genomes and Genetics
+
+Downloaded from https://www.kaggle.com/datasets/aryarishabh/of-genomes-and-genetics-hackerearth-ml-challenge
+
+
+Context
+
+Since the dawn of human life on the face of the earth, the global population has been booming. The population was estimated to be 1 billion people in the year 1800. The figure had increased to a new high of 6 billion humans by the turn of the twentieth century. Day in and day out, 227,000 people are being added to the world; it is projected that by the end of the 21st century, the world's population may exceed 11 billion.
+
+As per reports, as a consequence of the unsustainable increase in population and a lack of access to adequate health care, food, and shelter, the number of genetic disorder ailments have increased. Hereditary illnesses are becoming more common due to a lack of understanding about the need for genetic testing. Often kids die as a result of these illnesses, thus genetic testing during pregnancy is critical.
+
+--------------------------------------------
+
+Task
+You are hired as a Machine Learning Engineer from a government agency. You are given a dataset that contains medical information about children who have genetic disorders. Your task is to predict the following:
+
+Genetic disorder
+Disorder subclass
+
+--------------------------------------------
+
+Columns and Description
+
+- Column Name: Description
+- Patient Id: Represents the unique identification number of a patient
+- Patient Age: Represents the age of a patient
+- Genes in mother's side: Represents a gene defect in a patient's mother
+- Inherited from father: Represents a gene defect in a patient's father
+- Maternal gene: Represents a gene defect in the patient's maternal side of the family
+- Paternal gene: Represents a gene defect in a patient's paternal side of the family
+- Blood cell count (mcL): Represents the blood cell count of a patient
+- Patient First Name: Represents a patient's first name
+- Family Name: Represents a patient's family name or surname
+- Father's name: Represents a patient's father's name
+- Mother's age: Represents a patient's mother's name
+- Father's age: Represents a patient's father's age
+- Institute Name: Represents the medical institute where a patient was born
+- Location of Institute: Represents the location of the medical institute
+- Status: Represents whether a patient is deceased
+- Respiratory Rate (breaths/min): Represents a patient's respiratory breathing rate
+- Heart Rate (rates/min): Represents a patient's heart rate
+- Test 1-Test 5: Represents (masked) different types of tests that a patient underwent
+- Parental consent: Represents whether a patient's parents approved the treatment plan
+- Follow-up: Represents whether a patient has been asked to come
+- Gender: Represents a patient's gender
+- Birth asphyxia: Represents whether a patient suffered from birth asphyxia
+- Autospy shows birth defect (if applicable): Represents whether a patient's autopsy showed any birth defects
+- Place of birth: Represents whether a patient was born in a medical institute or home
+- Folic acid details (periconceptional): Represents the periconceptional folic acid supplementation details of a patient
+- H/O serious maternal illness: Represents whether a patient's mother has a history of serious illness
+- H/O radiation exposure (x-ray): Represents whether a patient has any radiation exposure history
+- H/O substance abuse: Represents whether a parent has a history of drug addiction
+- Assisted conception IVF/ART: Represents the type of treatment used for infertility
+- History of anomalies in previous pregnancies: Represents whether the mother had any anomalies in her previous pregnancies
+- No. of previous abortion: Represents the number of abortions that a mother had
+- Birth defects: Represents whether a patient has birth defects
+- White Blood cell count (thousand per microliter): Represents a patient's white blood cell count
+- Blood test result: Represents a patient's blood test results
+- Symptom 1-Symptom 5: Represents (masked) different types of symptoms that a patient had
+- Genetic Disorder: Represents the genetic disorder that a patient has (Target Column)
+- Disorder Subclass: Represents the subclass of the disorder (Target Column)
+
+--------------------------------------------
+
+Source
+
+https://www.hackerearth.com/challenges/new/competitive/hackerearth-machine-learning-challenge-genetic-testing/
