@@ -1,1 +1,0 @@
-# Genetic-Disorder-Prediction-App
