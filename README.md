@@ -39,13 +39,13 @@ cd Genetic-Disorder-Prediction-App
 
 1. Create and activate a virtual environment:
     ```
-    python3 -m venv env         # python -m venv env on Windows
-    source venv/bin/activate    # .\venv\Scripts\activate on Windows
+    python3 -m backend/venv env         # python -m venv env on Windows
+    source backend/venv/bin/activate    # .\backend\venv\Scripts\activate on Windows
     ```
 
 2. Install dependencies:
     ```
-    pip install -r requirements.txt
+    pip install -r backend/requirements.txt
     ```
 
 3. Start MongoDB (Ensure MongoDB is installed and running on your system):
@@ -55,6 +55,7 @@ cd Genetic-Disorder-Prediction-App
 
 4. Run the Flask server:
     ```
+    cd backend/
     flask run
     ````
 

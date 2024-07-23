@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Python env
 backend/env/
+
+# Python bytecode
+*.pyc
