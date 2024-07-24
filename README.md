@@ -95,7 +95,18 @@ cd Genetic-Disorder-Prediction-App
 ```
 .
 ├── app/
-│   ├── globals.css
+│   ├── components/
+│   │   ├── DashboardTable.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Header.tsx
+│   │   ├── InsightCharts.tsx
+│   │   └── PredictionForm.tsx
+│   ├── dashboard/
+│   │   └── page.tsx
+|   ├── insights/
+│   │   └── page.tsx
+|   ├── styles/
+│   │   ├── globals.css
 │   ├── favicon.ico
 │   ├── layout.tsx
 │   └── page.tsx
