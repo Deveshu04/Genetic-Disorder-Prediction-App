@@ -1,5 +1,4 @@
 import pandas as pd
-from zmq import USE_FD
 
 SELECTED_FEATURES = [
     # Patient's features
@@ -50,5 +49,3 @@ def export_data():
     data = create_data()
     data.to_csv("../data/data.csv", index=False)
 
-if __name__ == "__main__":
-    export_data()
