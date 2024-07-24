@@ -122,3 +122,35 @@ cd Genetic-Disorder-Prediction-App
 ├── .eslintrc.json
 └── .gitignore
 ```
+
+
+### Columns
+#### Patient Details
+- Patient Age - Integer (Required)
+- Gender - M/F (Required)
+- Birth defects - Singular/ Multiple (Required)
+- Blood cell count (mcL) - Float (Required)
+- White Blood cell count (thousand per microliter) - Float (Required)
+- Blood test result - Normal/Abnormal/Inconclusive/Inconclusive (Required)
+- Respiratory Rate (breaths/min) - Normal (30-60) or Tachypnea (Required) - Normal
+- Heart Rate (rates/min) - Normal (60-100) or Tachycardia (Required) - Normal
+- Folic acid details - Y/N (Required) - Y
+- H/O serious maternal illness - Y/N (Required)
+- H/O substance abuse - Y/N (Required) - N
+
+##### Dropdown (Additional Information)
+- H/O radiation exposure (x-ray) - Y/N (Optional) - N
+- Birth asphyxia - Y/N (Optional) - Y
+
+H/0 = History of
+
+#### Family Medical History
+- Genes in Mother's side - Y/N (Required) - Y
+- Inherited from Father - Y/N (Required) - N
+- Maternal gene - Y/N (Optional) - Y
+- Paternal gene - Y/N (Optional) - N
+- Mother's age - Integer (Required)
+- Father's age - Integer (Required)
+- Assisted conception IVF/ART - Y/N (Required) - N
+- History of anomalies in previous pregnancies - Y/N (Required) - N
+- No. of previous abortion - Integer(0,1,2,3,>3) (Required) - 0
