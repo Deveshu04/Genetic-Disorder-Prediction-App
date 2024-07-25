@@ -96,7 +96,7 @@ cd Genetic-Disorder-Prediction-App
 .
 ├── app/
 │   ├── components/
-│   │   ├── DashboardTable.tsx
+│   │   ├── SignupForm.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Header.tsx
 │   │   ├── InsightCharts.tsx
