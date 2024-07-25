@@ -23,7 +23,6 @@ resource_fields = {
 # Loading model and encoder
 model = joblib.load("app/ml/pipeline_model.pkl")
 y_encoder = joblib.load("app/ml/y_encoder.pkl")
-COLUMNS = joblib.load("app/ml/columns.pkl")
 
 class GeneticAPI(Resource):
     def get(self):
