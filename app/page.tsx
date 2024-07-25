@@ -137,15 +137,34 @@ export default function Home() {
     const [patientData, setPatientData] = useState(defaultPatientData);
     const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [apiResponse, setApiResponse] = useState(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setPatientData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const handleSubmit = () => {
-        console.log('Patient Data:', patientData);
-        // Here you would typically send the data to your API
+    const handleSubmit = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(patientData),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('API Response:', result); // Log the API response
+                setApiResponse(result);
+            } else {
+                console.error('Failed to fetch data');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+
         onClose(); // Close the modal after submission
     };
 
@@ -235,10 +254,10 @@ export default function Home() {
                             <ModalHeader className="flex flex-col gap-1 text-black justify-center items-center">Results</ModalHeader>
                             <ModalBody>
                                 <p className="text-black">
-                                    Genetic Disorder:
+                                    Genetic Disorder: {apiResponse?.genetic_disorder || 'N/A'}
                                 </p>
                                 <p className="text-black">
-                                    Disorder Sub-class:
+                                    Disorder Sub-class: {apiResponse?.disorder_subclass || 'N/A'}
                                 </p>
                             </ModalBody>
                             <ModalFooter className="flex justify-center">
