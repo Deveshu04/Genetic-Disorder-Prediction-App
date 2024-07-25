@@ -2,54 +2,54 @@
 import React, { useState } from 'react';
 import { InfoIcon } from 'lucide-react';
 import { BackgroundBeams } from "../app/components/ui/background-beams";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 
 interface PatientData {
     age: number;
-    gender: 'M' | 'F';
+    gender: 'Male' | 'Female';
     birthDefects: 'Singular' | 'Multiple';
     bloodCellCount: number;
     whiteBloodCellCount: number;
     bloodTestResult: 'Normal' | 'Abnormal' | 'Inconclusive';
     respiratoryRate: 'Normal' | 'Tachypnea';
     heartRate: 'Normal' | 'Tachycardia';
-    folicAcidDetails: 'Y' | 'N';
-    seriousMaternalIllness: 'Y' | 'N';
-    substanceAbuse: 'Y' | 'N';
-    radiationExposure: 'Y' | 'N';
-    birthAsphyxia: 'Y' | 'N';
-    maternalGenes: 'Y' | 'N';
-    paternalGenes: 'Y' | 'N';
-    maternalGene: 'Y' | 'N';
-    paternalGene: 'Y' | 'N';
+    folicAcidDetails: 'Yes' | 'No';
+    seriousMaternalIllness: 'Yes' | 'No';
+    substanceAbuse: 'Yes' | 'No';
+    radiationExposure: 'Yes' | 'No';
+    birthAsphyxia: 'Yes' | 'No';
+    maternalGenes: 'Yes' | 'No';
+    paternalGenes: 'Yes' | 'No';
+    maternalGene: 'Yes' | 'No';
+    paternalGene: 'Yes' | 'No';
     motherAge: number;
     fatherAge: number;
-    assistedConception: 'Y' | 'N';
-    previousAnomalies: 'Y' | 'N';
+    assistedConception: 'Yes' | 'No';
+    previousAnomalies: 'Yes' | 'No';
     previousAbortions: '0' | '1' | '2' | '3' | '>3';
 }
 
 const defaultPatientData: PatientData = {
     age: 0,
-    gender: 'M',
     birthDefects: 'Singular',
     bloodCellCount: 0,
     whiteBloodCellCount: 0,
     bloodTestResult: 'Normal',
     respiratoryRate: 'Normal',
     heartRate: 'Normal',
-    folicAcidDetails: 'Y',
-    seriousMaternalIllness: 'N',
-    substanceAbuse: 'N',
-    radiationExposure: 'N',
-    birthAsphyxia: 'Y',
-    maternalGenes: 'Y',
-    paternalGenes: 'N',
-    maternalGene: 'Y',
-    paternalGene: 'N',
+    folicAcidDetails: 'Yes',
+    seriousMaternalIllness: 'No',
+    substanceAbuse: 'No',
+    radiationExposure: 'No',
+    birthAsphyxia: 'Yes',
+    maternalGenes: 'Yes',
+    paternalGenes: 'No',
+    maternalGene: 'Yes',
+    paternalGene: 'No',
     motherAge: 0,
     fatherAge: 0,
-    assistedConception: 'N',
-    previousAnomalies: 'N',
+    assistedConception: 'No',
+    previousAnomalies: 'No',
     previousAbortions: '0',
 };
 
@@ -87,7 +87,28 @@ const InputField = ({ label, name, type, value, onChange, options, tooltip }) =>
             </span>
         </label>
 
-        {type === 'select' ? (
+        {type === 'radio' ? (
+            <div className="mt-1 space-x-4">
+                {options.map((option) => (
+                    <label key={option} className="inline-flex items-center">
+                        <input
+                            type="radio"
+                            name={name}
+                            value={option}
+                            checked={value === option}
+                            onChange={onChange}
+                            className="form-radio text-teal-500 focus:ring-2 focus:ring-teal-500"
+                            style={{
+                                accentColor: '#14b8a6', // This is the Tailwind teal-500 color
+                                backgroundColor: 'transparent',
+                                borderColor: '#14b8a6'
+                            }}
+                        />
+                        <span className="ml-2 text-neutral-300">{option}</span>
+                    </label>
+                ))}
+            </div>
+        ) : type === 'select' ? (
             <select
                 name={name}
                 value={value}
@@ -115,16 +136,23 @@ const InputField = ({ label, name, type, value, onChange, options, tooltip }) =>
 export default function Home() {
     const [patientData, setPatientData] = useState(defaultPatientData);
     const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setPatientData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         console.log('Patient Data:', patientData);
         // Here you would typically send the data to your API
+        onClose(); // Close the modal after submission
+    };
+
+    // Helper function to determine if a field should use radio buttons
+    const shouldUseRadio = (name) => {
+        const field = patientData[name];
+        return typeof field === 'string' && (field === 'Yes' || field === 'No' || field === 'Male' || field === 'Female');
     };
 
     return (
@@ -133,21 +161,21 @@ export default function Home() {
                 <h1 className="text-4xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 text-center font-sans font-bold mb-8">
                     Genetic Prediction App
                 </h1>
-                <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-8">
+                <form className="flex flex-col md:flex-row gap-8">
                     <div className="flex-1 bg-neutral-900/50 p-6 rounded-lg shadow-md">
                         <h2 className="text-2xl font-semibold mb-6 pb-2 border-b-2 border-teal-500 text-teal-400">Patient Details</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <InputField label="Patient Age" name="age" type="number" value={patientData.age} onChange={handleInputChange} tooltip={tooltips.age}/>
-                            <InputField label="Gender" name="gender" type="select" value={patientData.gender} onChange={handleInputChange} options={['M', 'F']} tooltip={tooltips.gender}/>
-                            <InputField label="Birth defects" name="birthDefects" type="select" value={patientData.birthDefects} onChange={handleInputChange} options={['Singular', 'Multiple']} tooltip={tooltips.birthDefects}/>
+                            <InputField label="Gender" name="gender" type="radio" value={patientData.gender} onChange={handleInputChange} options={['Male', 'Female']} tooltip={tooltips.gender}/>
+                            <InputField label="Birth defects" name="birthDefects" type="radio" value={patientData.birthDefects} onChange={handleInputChange} options={['Singular', 'Multiple']} tooltip={tooltips.birthDefects}/>
                             <InputField label="Blood cell count (mcL)" name="bloodCellCount" type="number" value={patientData.bloodCellCount} onChange={handleInputChange} tooltip={tooltips.bloodCellCount}/>
                             <InputField label="White Blood cell count" name="whiteBloodCellCount" type="number" value={patientData.whiteBloodCellCount} onChange={handleInputChange} tooltip={tooltips.whiteBloodCellCount}/>
                             <InputField label="Blood test result" name="bloodTestResult" type="select" value={patientData.bloodTestResult} onChange={handleInputChange} options={['Normal', 'Abnormal', 'Inconclusive']} tooltip={tooltips.bloodTestResult}/>
-                            <InputField label="Respiratory Rate" name="respiratoryRate" type="select" value={patientData.respiratoryRate} onChange={handleInputChange} options={['Normal', 'Tachypnea']} tooltip={tooltips.respiratoryRate}/>
-                            <InputField label="Heart Rate" name="heartRate" type="select" value={patientData.heartRate} onChange={handleInputChange} options={['Normal', 'Tachycardia']} tooltip={tooltips.heartRate}/>
-                            <InputField label="Folic acid details" name="folicAcidDetails" type="select" value={patientData.folicAcidDetails} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.folicAcidDetails}/>
-                            <InputField label="H/O serious maternal illness" name="seriousMaternalIllness" type="select" value={patientData.seriousMaternalIllness} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.seriousMaternalIllness}/>
-                            <InputField label="H/O substance abuse" name="substanceAbuse" type="select" value={patientData.substanceAbuse} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.substanceAbuse}/>
+                            <InputField label="Respiratory Rate" name="respiratoryRate" type="radio" value={patientData.respiratoryRate} onChange={handleInputChange} options={['Normal', 'Tachypnea']} tooltip={tooltips.respiratoryRate}/>
+                            <InputField label="Heart Rate" name="heartRate" type="radio" value={patientData.heartRate} onChange={handleInputChange} options={['Normal', 'Tachycardia']} tooltip={tooltips.heartRate}/>
+                            <InputField label="Folic acid details" name="folicAcidDetails" type="radio" value={patientData.folicAcidDetails} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.folicAcidDetails}/>
+                            <InputField label="H/O serious maternal illness" name="seriousMaternalIllness" type="radio" value={patientData.seriousMaternalIllness} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.seriousMaternalIllness}/>
+                            <InputField label="H/O substance abuse" name="substanceAbuse" type="radio" value={patientData.substanceAbuse} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.substanceAbuse}/>
                         </div>
 
                         <div className="mt-6">
@@ -162,8 +190,8 @@ export default function Home() {
                                 <div className="mt-4 bg-neutral-800/50 p-4 rounded-md">
                                     <h3 className="text-lg font-medium mb-3 text-teal-400">Additional Information</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <InputField label="H/O radiation exposure (x-ray)" name="radiationExposure" type="select" value={patientData.radiationExposure} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.radiationExposure}/>
-                                        <InputField label="Birth asphyxia" name="birthAsphyxia" type="select" value={patientData.birthAsphyxia} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.birthAsphyxia}/>
+                                        <InputField label="H/O radiation exposure (x-ray)" name="radiationExposure" type="radio" value={patientData.radiationExposure} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.radiationExposure}/>
+                                        <InputField label="Birth asphyxia" name="birthAsphyxia" type="radio" value={patientData.birthAsphyxia} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.birthAsphyxia}/>
                                     </div>
                                 </div>
                             )}
@@ -173,28 +201,59 @@ export default function Home() {
                     <div className="flex-1 bg-neutral-900/50 p-6 rounded-lg shadow-md">
                         <h2 className="text-2xl font-semibold mb-6 pb-2 border-b-2 border-teal-500 text-teal-400">Family Medical History</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <InputField label="Genes in Mother's side" name="maternalGenes" type="select" value={patientData.maternalGenes} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.maternalGenes}/>
-                            <InputField label="Inherited from Father" name="paternalGenes" type="select" value={patientData.paternalGenes} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.paternalGenes}/>
-                            <InputField label="Maternal gene" name="maternalGene" type="select" value={patientData.maternalGene} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.maternalGene}/>
-                            <InputField label="Paternal gene" name="paternalGene" type="select" value={patientData.paternalGene} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.paternalGene}/>
+                            <InputField label="Genes in Mother's side" name="maternalGenes" type="radio" value={patientData.maternalGenes} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.maternalGenes}/>
+                            <InputField label="Inherited from Father" name="paternalGenes" type="radio" value={patientData.paternalGenes} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.paternalGenes}/>
+                            <InputField label="Maternal gene" name="maternalGene" type="radio" value={patientData.maternalGene} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.maternalGene}/>
+                            <InputField label="Paternal gene" name="paternalGene" type="radio" value={patientData.paternalGene} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.paternalGene}/>
                             <InputField label="Mother's age" name="motherAge" type="number" value={patientData.motherAge} onChange={handleInputChange} tooltip={tooltips.motherAge}/>
                             <InputField label="Father's age" name="fatherAge" type="number" value={patientData.fatherAge} onChange={handleInputChange} tooltip={tooltips.fatherAge}/>
-                            <InputField label="Assisted conception IVF/ART" name="assistedConception" type="select" value={patientData.assistedConception} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.assistedConception}/>
-                            <InputField label="History of anomalies in previous pregnancies" name="previousAnomalies" type="select" value={patientData.previousAnomalies} onChange={handleInputChange} options={['Y', 'N']} tooltip={tooltips.previousAnomalies}/>
+                            <InputField label="Assisted conception IVF/ART" name="assistedConception" type="radio" value={patientData.assistedConception} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.assistedConception}/>
+                            <InputField label="History of anomalies in previous pregnancies" name="previousAnomalies" type="radio" value={patientData.previousAnomalies} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.previousAnomalies}/>
                             <InputField label="No. of previous abortion" name="previousAbortions" type="select" value={patientData.previousAbortions} onChange={handleInputChange} options={['0', '1', '2', '3', '>3']} tooltip={tooltips.previousAbortions}/>
                         </div>
                     </div>
                 </form>
                 <div className="text-center mt-8">
-                    <button
-                        type="submit"
+                    <Button
+                        onPress={onOpen}
                         className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                     >
                         Predict
-                    </button>
+                    </Button>
                 </div>
             </div>
             <BackgroundBeams />
+
+            <Modal
+                size="lg"
+                isOpen={isOpen}
+                onClose={onClose}
+            >
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1 text-black justify-center items-center">Results</ModalHeader>
+                            <ModalBody>
+                                <p className="text-black">
+                                    Genetic Disorder:
+                                </p>
+                                <p className="text-black">
+                                    Disorder Sub-class:
+                                </p>
+                            </ModalBody>
+                            <ModalFooter className="flex justify-center">
+                                <Button
+                                    color="primary"
+                                    onPress={handleSubmit}
+                                    className="bg-teal-600 hover:bg-teal-700 text-white"
+                                >
+                                    Insights
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </div>
     );
 }
