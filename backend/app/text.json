@@ -1,0 +1,27 @@
+{
+    "Patient Details": {
+        "History": "Previous illnesses",
+        "Patient Age": 30,
+        "Gender": "Female",
+        "Birth defects": "None",
+        "Blood cell count (mcL)": "Normal",
+        "White Blood cell count (thousand per microliter)": 7.5,
+        "Blood test result": "Normal",
+        "Respiratory Rate": 16,
+        "Heart Rate": 72,
+        "Folic acid details": "Sufficient",
+        "H/O serious maternal illness": "No",
+        "H/O substance abuse": "No"
+    },
+    "Family Medical": {
+        "Genes in Mother's side": "None",
+        "Inherited from Father": "None",
+        "Maternal gene": "Normal",
+        "Paternal gene": "Normal",
+        "Mother's age": 30,
+        "Father's age": 32,
+        "Assisted conception IVF/ART": "No",
+        "History of anomalies in previous pregnancies": "None",
+        "No. of previous abortion": 0
+    }
+}
