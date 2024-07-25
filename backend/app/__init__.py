@@ -7,7 +7,8 @@ from flask_restful import Api
 def create_app():
     app = Flask(__name__)
     api = Api(app)
-
+    CORS(app)
+    
     # Configuration
     # app.config["MONGO_URI"] = "mongodb://localhost:27017/genetic_disorder_db"
     # mongo.init_app(app)
@@ -17,5 +18,5 @@ def create_app():
     from .api import GeneticAPI
     app.register_blueprint(main)
     api.add_resource(GeneticAPI, "/api/predict")
-    CORS(app)
+
     return app

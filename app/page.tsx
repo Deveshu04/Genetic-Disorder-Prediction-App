@@ -10,8 +10,8 @@ interface PatientData {
     birthDefects: 'Singular' | 'Multiple';
     bloodCellCount: number;
     whiteBloodCellCount: number;
-    bloodTestResult: 'Normal' | 'Abnormal' | 'Inconclusive';
-    respiratoryRate: 'Normal' | 'Tachypnea';
+    bloodTestResult: 'normal' | 'Abnormal' | 'slightly abnormal' | 'inconclusive';
+    respiratoryRate: 'Normal (30-60)' | 'Tachypnea';
     heartRate: 'Normal' | 'Tachycardia';
     folicAcidDetails: 'Yes' | 'No';
     seriousMaternalIllness: 'Yes' | 'No';
@@ -26,16 +26,17 @@ interface PatientData {
     fatherAge: number;
     assistedConception: 'Yes' | 'No';
     previousAnomalies: 'Yes' | 'No';
-    previousAbortions: '0' | '1' | '2' | '3' | '>3';
+    previousAbortions: '0' | '1' | '2' | '3' | '4';
 }
 
 const defaultPatientData: PatientData = {
     age: 0,
+    gender: 'Male',
     birthDefects: 'Singular',
     bloodCellCount: 0,
     whiteBloodCellCount: 0,
-    bloodTestResult: 'Normal',
-    respiratoryRate: 'Normal',
+    bloodTestResult: 'normal',
+    respiratoryRate: 'Normal (30-60)',
     heartRate: 'Normal',
     folicAcidDetails: 'Yes',
     seriousMaternalIllness: 'No',
@@ -145,13 +146,41 @@ export default function Home() {
     };
 
     const handleSubmit = async () => {
+        const data = {
+            patient_details: {
+                patient_age: patientData.age,
+                gender: patientData.gender,
+                birth_defects: patientData.birthDefects,
+                "blood_cell_count_(mcl)": patientData.bloodCellCount,
+                "white_blood_cell_count_(thousand_per_microliter)": patientData.whiteBloodCellCount,
+                blood_test_result: patientData.bloodTestResult,
+                "respiratory_rate_(breaths/min)": patientData.respiratoryRate,
+                "heart_rate_(rates/min)": patientData.heartRate,
+                "folic_acid_details_(peri-conceptional)": patientData.folicAcidDetails,
+                "h/o_serious_maternal_illness": patientData.seriousMaternalIllness,
+                "h/o_substance_abuse": patientData.substanceAbuse,
+                "h/o_radiation_exposure_(x-ray)": patientData.radiationExposure,
+                birth_asphyxia: patientData.birthAsphyxia
+            },
+            family_history: {
+                genes_in_mother_side: patientData.maternalGenes,
+                inherited_from_father: patientData.paternalGenes,
+                maternal_gene: patientData.maternalGene,
+                paternal_gene: patientData.paternalGene,
+                mother_age: patientData.motherAge,
+                father_age: patientData.fatherAge,
+                "assisted_conception_ivf/art": patientData.assistedConception,
+                history_of_anomalies_in_previous_pregnancies: patientData.previousAnomalies,
+                no_of_previous_abortion: patientData.previousAbortions
+            }
+        };
         try {
             const response = await fetch('http://127.0.0.1:5000/api/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(patientData),
+                body: JSON.stringify(data),
             });
 
             if (response.ok) {
@@ -189,10 +218,10 @@ export default function Home() {
                             <InputField label="Birth defects" name="birthDefects" type="radio" value={patientData.birthDefects} onChange={handleInputChange} options={['Singular', 'Multiple']} tooltip={tooltips.birthDefects}/>
                             <InputField label="Blood cell count (mcL)" name="bloodCellCount" type="number" value={patientData.bloodCellCount} onChange={handleInputChange} tooltip={tooltips.bloodCellCount}/>
                             <InputField label="White Blood cell count" name="whiteBloodCellCount" type="number" value={patientData.whiteBloodCellCount} onChange={handleInputChange} tooltip={tooltips.whiteBloodCellCount}/>
-                            <InputField label="Blood test result" name="bloodTestResult" type="select" value={patientData.bloodTestResult} onChange={handleInputChange} options={['Normal', 'Abnormal', 'Inconclusive']} tooltip={tooltips.bloodTestResult}/>
-                            <InputField label="Respiratory Rate" name="respiratoryRate" type="radio" value={patientData.respiratoryRate} onChange={handleInputChange} options={['Normal', 'Tachypnea']} tooltip={tooltips.respiratoryRate}/>
-                            <InputField label="Heart Rate" name="heartRate" type="radio" value={patientData.heartRate} onChange={handleInputChange} options={['Normal', 'Tachycardia']} tooltip={tooltips.heartRate}/>
-                            <InputField label="Folic acid details" name="folicAcidDetails" type="radio" value={patientData.folicAcidDetails} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.folicAcidDetails}/>
+                            <InputField label="Blood test result" name="bloodTestResult" type="select" value={patientData.bloodTestResult} onChange={handleInputChange} options={['Normal', 'Slightly Abnormal', 'Abnormal', 'Inconclusive']} tooltip={tooltips.bloodTestResult}/>
+                            <InputField label="Respiratory Rate (breaths/min)" name="respiratoryRate" type="radio" value={patientData.respiratoryRate} onChange={handleInputChange} options={['Normal (30-60)', 'Tachypnea']} tooltip={tooltips.respiratoryRate}/>
+                            <InputField label="Heart Rate (rates/min)" name="heartRate" type="radio" value={patientData.heartRate} onChange={handleInputChange} options={['Normal', 'Tachycardia']} tooltip={tooltips.heartRate}/>
+                            <InputField label="Folic acid details (peri-conceptional)" name="folicAcidDetails" type="radio" value={patientData.folicAcidDetails} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.folicAcidDetails}/>
                             <InputField label="H/O serious maternal illness" name="seriousMaternalIllness" type="radio" value={patientData.seriousMaternalIllness} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.seriousMaternalIllness}/>
                             <InputField label="H/O substance abuse" name="substanceAbuse" type="radio" value={patientData.substanceAbuse} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.substanceAbuse}/>
                         </div>

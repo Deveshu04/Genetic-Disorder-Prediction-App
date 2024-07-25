@@ -12,8 +12,8 @@ Genetic = {
 }
 
 parser = reqparse.RequestParser()
-parser.add_argument('Patient Details', type=dict, required=True, help="Patient Details cannot be blank")
-parser.add_argument('Family Medical', type=dict, required=True, help="Family Medical cannot be blank")
+parser.add_argument('patient_details', type=dict, required=True, help="Patient Details cannot be blank")
+parser.add_argument('family_history', type=dict, required=True, help="Family Medical cannot be blank")
 
 resource_fields = {
     'genetic_disorder': fields.String,
@@ -32,10 +32,10 @@ class GeneticAPI(Resource):
     def post(self):
         args = parser.parse_args()
 
-        patient_details = args['Patient Details']
-        family_medical = args['Family Medical']
+        patient_details = args['patient_details']
+        family_medical = args['family_history']
 
-        data = {**patient_details, **family_medical}       
+        data = {**patient_details, **family_medical}
         data = pd.DataFrame(data, index=[0]).replace({None: np.nan})
 
         predicted_value = model.predict(data).reshape(-1, 1)

@@ -1,5 +1,5 @@
 {
-    "Patient Details": {
+    "patient_details": {
         "patient_age": 30,
         "gender": "Female",
         "birth_defects": "Singular",
@@ -14,7 +14,7 @@
         "h/o_radiation_exposure_(x-ray)": null,
         "birth_asphyxia": null
     },
-    "Family Medical": {
+    "family_history": {
         "genes_in_mother_side": null,
         "inherited_from_father": null,
         "maternal_gene": null,
