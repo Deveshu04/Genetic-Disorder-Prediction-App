@@ -49,8 +49,8 @@ cd Genetic-Disorder-Prediction-App
 
 1. Create and activate a virtual environment:
     ```
-    python3 -m backend/venv env         # python -m venv env on Windows
-    source backend/venv/bin/activate    # .\backend\venv\Scripts\activate on Windows
+    python3 -m backend/venv env         # python -m venv backend/env on Windows
+    source backend/venv/bin/activate    # .\backend\env\Scripts\activate on Windows
     ```
 
 2. Install dependencies:
