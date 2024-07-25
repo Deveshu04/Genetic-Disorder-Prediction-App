@@ -207,7 +207,7 @@ export default function Home() {
         <div className="min-h-screen w-full bg-neutral-950 relative flex flex-col items-center justify-start antialiased">
             <div className="w-full max-w-7xl mx-auto p-4 relative z-10">
                 <h1 className="text-4xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 text-center font-sans font-bold mb-8">
-                    Genetic Prediction App
+                    Child Genetic Disorder Predictor
                 </h1>
                 <form className="flex flex-col md:flex-row gap-8">
                     <div className="flex-1 bg-neutral-900/50 p-6 rounded-lg shadow-md">

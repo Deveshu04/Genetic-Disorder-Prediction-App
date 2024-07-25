@@ -1,4 +1,4 @@
-# Genetic Disorder Prediction App
+# Child Genetic Disorder Predictor
 
 ## Table of Content
   * [Overview](#overview)

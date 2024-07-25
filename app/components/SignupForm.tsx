@@ -20,7 +20,7 @@ export function SignupForm() {
                 Welcome to Genetic Prediction
             </h2>
             <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-                Login to Genetic Prediction app.
+                Login to Child Genetic Disorder Predictor.
             </p>
 
             <form className="my-8" onSubmit={handleSubmit}>
