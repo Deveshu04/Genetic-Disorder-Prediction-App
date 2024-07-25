@@ -1,27 +1,28 @@
 {
     "Patient Details": {
-        "History": "Previous illnesses",
-        "Patient Age": 30,
-        "Gender": "Female",
-        "Birth defects": "None",
-        "Blood cell count (mcL)": "Normal",
-        "White Blood cell count (thousand per microliter)": 7.5,
-        "Blood test result": "Normal",
-        "Respiratory Rate": 16,
-        "Heart Rate": 72,
-        "Folic acid details": "Sufficient",
-        "H/O serious maternal illness": "No",
-        "H/O substance abuse": "No"
+        "patient_age": 30,
+        "gender": "Female",
+        "birth_defects": "Singular",
+        "blood_cell_count_(mcl)": 4.57,
+        "white_blood_cell_count_(thousand_per_microliter)": 7.5,
+        "blood_test_result": "normal",
+        "respiratory_rate_(breaths/min)": "Normal (30-60)",
+        "heart_rate_(rates/min)": "Normal",
+        "folic_acid_details_(peri-conceptional)": "No",
+        "h/o_serious_maternal_illness": "No",
+        "h/o_substance_abuse": "No",
+        "h/o_radiation_exposure_(x-ray)": null,
+        "birth_asphyxia": null
     },
     "Family Medical": {
-        "Genes in Mother's side": "None",
-        "Inherited from Father": "None",
-        "Maternal gene": "Normal",
-        "Paternal gene": "Normal",
-        "Mother's age": 30,
-        "Father's age": 32,
-        "Assisted conception IVF/ART": "No",
-        "History of anomalies in previous pregnancies": "None",
-        "No. of previous abortion": 0
+        "genes_in_mother_side": null,
+        "inherited_from_father": null,
+        "maternal_gene": null,
+        "paternal_gene": null,
+        "mother_age": 49,
+        "father_age": 30,
+        "assisted_conception_ivf/art": "No",
+        "history_of_anomalies_in_previous_pregnancies": "No",
+        "no_of_previous_abortion": 0
     }
 }

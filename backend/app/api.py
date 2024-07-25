@@ -1,52 +1,52 @@
-from flask_restful import Resource, Api
-from flask import request
+import joblib
+import numpy as np
+import pandas as pd
+from flask_restful import Resource, reqparse, fields, marshal_with
+
+
+
 
 Genetic = {
     'name': 'Genetic',
     'description': 'Genetic API'
 }
 
+parser = reqparse.RequestParser()
+parser.add_argument('Patient Details', type=dict, required=True, help="Patient Details cannot be blank")
+parser.add_argument('Family Medical', type=dict, required=True, help="Family Medical cannot be blank")
+
+resource_fields = {
+    'genetic_disorder': fields.String,
+    'disorder_subclass': fields.String
+}
+
+# Loading model and encoder
+model = joblib.load("app/ml/pipeline_model.pkl")
+y_encoder = joblib.load("app/ml/y_encoder.pkl")
+COLUMNS = joblib.load("app/ml/columns.pkl")
+
 class GeneticAPI(Resource):
     def get(self):
         return Genetic
     
+    @marshal_with(resource_fields)
     def post(self):
-        data = request.get_json()
-        if data is None:
-            return {"error": "Invalid JSON data"}, 400
+        args = parser.parse_args()
 
-        print("Received data:", data)
+        patient_details = args['Patient Details']
+        family_medical = args['Family Medical']
 
-        expected_patient_keys = [
-            "History", "Patient Age", "Gender", "Birth defects", 
-            "Blood cell count (mcL)", "White Blood cell count (thousand per microliter)",
-            "Blood test result", "Respiratory Rate", "Heart Rate", "Folic acid details",
-            "H/O serious maternal illness", "H/O substance abuse"
-        ]
-        expected_family_keys = [
-            "Genes in Mother's side", "Inherited from Father", "Maternal gene", 
-            "Paternal gene", "Mother's age", "Father's age", 
-            "Assisted conception IVF/ART", "History of anomalies in previous pregnancies",
-            "No. of previous abortion"
-        ]
+        data = {**patient_details, **family_medical}       
+        data = pd.DataFrame(data, index=[0]).replace({None: np.nan})
 
-        patient_details = {}
-        family_medical = {}
-
-        for key in expected_patient_keys:
-            patient_details[key] = data.get(key, None)
-            print(f"Key: {key}, Value: {data.get(key, None)}")
-
-        for key in expected_family_keys:
-            family_medical[key] = data.get(key, None)
-            print(f"Key: {key}, Value: {data.get(key, None)}")
+        predicted_value = model.predict(data).reshape(-1, 1)
+        predicted_value = y_encoder.inverse_transform(predicted_value)
+        genetic_disorder, disorder_subclass = predicted_value[0][0].title().split('s-')
 
         response = {
-            "Patient Details": patient_details,
-            "Family Medical": family_medical,
-            "Key": "Here is the output of this api"
+            'genetic_disorder': genetic_disorder,
+            'disorder_subclass': disorder_subclass
         }
-        
-        print("Response data:", response)
+
         return response, 201
 

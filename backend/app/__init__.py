@@ -16,6 +16,6 @@ def create_app():
     from .routes import main
     from .api import GeneticAPI
     app.register_blueprint(main)
-    api.add_resource(GeneticAPI, '/')
+    api.add_resource(GeneticAPI, "/api/predict")
     CORS(app)
     return app
