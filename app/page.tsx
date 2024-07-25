@@ -257,7 +257,7 @@ export default function Home() {
                             <InputField label="Father's age" name="fatherAge" type="number" value={patientData.fatherAge} onChange={handleInputChange} tooltip={tooltips.fatherAge}/>
                             <InputField label="Assisted conception IVF/ART" name="assistedConception" type="radio" value={patientData.assistedConception} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.assistedConception}/>
                             <InputField label="History of anomalies in previous pregnancies" name="previousAnomalies" type="radio" value={patientData.previousAnomalies} onChange={handleInputChange} options={['Yes', 'No']} tooltip={tooltips.previousAnomalies}/>
-                            <InputField label="No. of previous abortion" name="previousAbortions" type="select" value={patientData.previousAbortions} onChange={handleInputChange} options={['0', '1', '2', '3', '>3']} tooltip={tooltips.previousAbortions}/>
+                            <InputField label="No. of previous abortion" name="previousAbortions" type="select" value={patientData.previousAbortions} onChange={handleInputChange} options={['0', '1', '2', '3', '4']} tooltip={tooltips.previousAbortions}/>
                         </div>
                     </div>
                 </form>
@@ -283,10 +283,10 @@ export default function Home() {
                             <ModalHeader className="flex flex-col gap-1 text-black justify-center items-center">Results</ModalHeader>
                             <ModalBody>
                                 <p className="text-black">
-                                    Genetic Disorder: {apiResponse?.genetic_disorder || 'N/A'}
+                                    <b>Genetic Disorder</b>:<br/> {apiResponse?.genetic_disorder || 'N/A'}
                                 </p>
                                 <p className="text-black">
-                                    Disorder Sub-class: {apiResponse?.disorder_subclass || 'N/A'}
+                                    <b>Disorder Sub-class</b>:<br/> {apiResponse?.disorder_subclass || 'N/A'}
                                 </p>
                             </ModalBody>
                             <ModalFooter className="flex justify-center">

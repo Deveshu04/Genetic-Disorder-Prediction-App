@@ -1,0 +1,52 @@
+{
+    "title": "Child Genetic Disorder Prediction API",
+    "description": "API to predict genetic disorders and their subclasses based on patient and family medical history data.",
+    "version": "0.1.0",
+    "author": "Shivam Sharma & Parampreet Singh",
+    "base_url": "http://localhost:5000",
+    "endpoints": {
+        "POST /api/predict": {
+            "description": "Predict genetic disorder and its subclass",
+            "request": {
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "patient_details": {
+                        "patient_age": "Number",
+                        "gender": ["Male", "Female"],
+                        "birth_defects": ["Singular", "Multiple"],
+                        "blood_cell_count_(mcl)": "Floating point number",
+                        "white_blood_cell_count_(thousand_per_microliter)": "Floating point number",
+                        "blood_test_result": [
+                            "normal",
+                            "abnormal",
+                            "slightly abnormal",
+                            "inconclusive"
+                        ],
+                        "respiratory_rate_(breaths/min)": [
+                            "Normal (30-60)",
+                            "Tachypnea"
+                        ],
+                        "heart_rate_(rates/min)": ["Normal", "Tachycardia"],
+                        "folic_acid_details_(peri-conceptional)": ["Yes", "No"],
+                        "h/o_serious_maternal_illness": ["Yes", "No"],
+                        "h/o_substance_abuse": ["Yes", "No"],
+                        "h/o_radiation_exposure_(x-ray)": ["Yes", "No"],
+                        "birth_asphyxia": ["Yes", "No"]
+                    },
+                    "family_history": {
+                        "mother_age": "Number",
+                        "father_age": "Number",
+                        "assisted_conception_ivf/art": ["Yes", "No"],
+                        "history_of_anomalies_in_previous_pregnancies": [
+                            "Yes",
+                            "No"
+                        ],
+                        "no_of_previous_abortion": "Number [0-4]"
+                    }
+                }
+            }
+        }
+    }
+}
