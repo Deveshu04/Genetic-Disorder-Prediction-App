@@ -193,8 +193,7 @@ export default function Home() {
         } catch (error) {
             console.error('Error:', error);
         }
-
-        onClose(); // Close the modal after submission
+        // Close the modal after submission
     };
 
     // Helper function to determine if a field should use radio buttons
@@ -263,7 +262,7 @@ export default function Home() {
                 </form>
                 <div className="text-center mt-8">
                     <Button
-                        onPress={onOpen}
+                        onPress={handleSubmit()}
                         className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                     >
                         Predict
@@ -292,7 +291,6 @@ export default function Home() {
                             <ModalFooter className="flex justify-center">
                                 <Button
                                     color="primary"
-                                    onPress={handleSubmit}
                                     className="bg-teal-600 hover:bg-teal-700 text-white"
                                 >
                                     Insights
