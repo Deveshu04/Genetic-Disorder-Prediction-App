@@ -1,34 +1,57 @@
-'use client'
-declare module 'recharts';
-import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
+// components/InsightCharts.js
+import React, { useEffect, useState } from 'react';
+import { Pie, Bar } from 'react-chartjs-2';
+import 'chart.js/auto';  // Necessary to automatically register the charts
 
-const sampleData = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-]
+const InsightCharts = () => {
+    const [data, setData] = useState(null);
 
-export default function InsightCharts() {
+    useEffect(() => {
+        fetch('http://localhost:5000/api/data')
+            .then(response => response.json())
+            .then(data => setData(data));
+    }, []);
+
+    if (!data) return <p>Loading...</p>;
+
+    const pieData = {
+        labels: ['Yes', 'No'],
+        datasets: [{
+            data: [data.yesCount, data.noCount],
+            backgroundColor: ['#36A2EB', '#FF6384'],
+        }]
+    };
+
+    const barData = {
+        labels: ['Normal', 'Abnormal', 'Slightly Abnormal', 'Inconclusive'],
+        datasets: [{
+            label: 'Blood Test Results',
+            data: [data.normal, data.abnormal, data.slightlyAbnormal, data.inconclusive],
+            backgroundColor: 'rgba(75,192,192,0.4)',
+        }]
+    };
+
+    const histogramData = {
+        labels: data.ageBuckets,
+        datasets: [{
+            label: 'Age Distribution',
+            data: data.ageCounts,
+            backgroundColor: 'rgba(255,99,132,0.2)',
+            borderColor: 'rgba(255,99,132,1)',
+            borderWidth: 1
+        }]
+    };
+
     return (
-        <div className="space-y-8">
-            <div>
-                <h2 className="text-2xl font-bold mb-4">Sample Pie Chart</h2>
-                <PieChart width={400} height={400}>
-                    <Pie data={sampleData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label />
-                </PieChart>
-            </div>
-            <div>
-                <h2 className="text-2xl font-bold mb-4">Sample Bar Chart</h2>
-                <BarChart width={600} height={300} data={sampleData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="value" fill="#8884d8" />
-                </BarChart>
-            </div>
+        <div>
+            <h2>Pie Chart</h2>
+            <Pie data={pieData} />
+            <h2>Bar Chart</h2>
+            <Bar data={barData} />
+            <h2>Histogram</h2>
+            <Bar data={histogramData} options={{ indexAxis: 'y' }} />
         </div>
-    )
-}
+    );
+};
+
+export default InsightCharts;
