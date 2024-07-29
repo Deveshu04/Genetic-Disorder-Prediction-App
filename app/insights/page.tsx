@@ -20,7 +20,7 @@ const InsightCharts = () => {
             data: [data.yesCount, data.noCount],
             backgroundColor: ['#36A2EB', '#FF6384'],
         }]
-    };
+    
 
     const barData = {
         labels: ['Normal', 'Abnormal', 'Slightly Abnormal', 'Inconclusive'],
