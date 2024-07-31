@@ -295,12 +295,6 @@ export default function Home() {
                                 )}
                             </ModalBody>
                             <ModalFooter className="flex justify-center">
-                                <Button
-                                    color="primary"
-                                    className="bg-teal-600 hover:bg-teal-700 text-white"
-                                >
-                                    Insights
-                                </Button>
                             </ModalFooter>
                         </>
                     )}
