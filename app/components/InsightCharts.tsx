@@ -1,4 +1,4 @@
-// components/InsightCharts.js
+// components/ui/InsightCharts.js
 import React, { useEffect, useState } from 'react';
 import { Pie, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';  // Necessary to automatically register the charts

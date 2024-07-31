@@ -185,15 +185,15 @@ export default function Home() {
 
             if (response.ok) {
                 const result = await response.json();
-                console.log('API Response:', result); // Log the API response
+                console.log('API Response:', result);
                 setApiResponse(result);
+                onOpen(); // Open the modal after setting the API response
             } else {
                 console.error('Failed to fetch data');
             }
         } catch (error) {
             console.error('Error:', error);
         }
-        // Close the modal after submission
     };
 
     // Helper function to determine if a field should use radio buttons
@@ -262,7 +262,7 @@ export default function Home() {
                 </form>
                 <div className="text-center mt-8">
                     <Button
-                        onPress={handleSubmit()}
+                        onPress={() => handleSubmit()}
                         className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                     >
                         Predict
@@ -281,12 +281,18 @@ export default function Home() {
                         <>
                             <ModalHeader className="flex flex-col gap-1 text-black justify-center items-center">Results</ModalHeader>
                             <ModalBody>
-                                <p className="text-black">
-                                    <b>Genetic Disorder</b>:<br/> {apiResponse?.genetic_disorder || 'N/A'}
-                                </p>
-                                <p className="text-black">
-                                    <b>Disorder Sub-class</b>:<br/> {apiResponse?.disorder_subclass || 'N/A'}
-                                </p>
+                                {apiResponse ? (
+                                    <>
+                                        <p className="text-black">
+                                            <b>Genetic Disorder</b>:<br/> {apiResponse.genetic_disorder || 'N/A'}
+                                        </p>
+                                        <p className="text-black">
+                                            <b>Disorder Sub-class</b>:<br/> {apiResponse.disorder_subclass || 'N/A'}
+                                        </p>
+                                    </>
+                                ) : (
+                                    <p className="text-black">No data available</p>
+                                )}
                             </ModalBody>
                             <ModalFooter className="flex justify-center">
                                 <Button
